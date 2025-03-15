@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Fruity Clicker</title>
@@ -77,6 +77,12 @@
     #gardenBox:hover {
       background-color: #ff99cc;
     }
+    #armyBox {
+      background-color: #ccffcc; /* Light green for Fruit Army */
+    }
+    #armyBox:hover {
+      background-color: #99ff99;
+    }
     .yard-images {
       display: flex;
       justify-content: center;
@@ -133,6 +139,14 @@
           <p id="gardenCostText">500</p>
         </div>
       </div>
+      <div class="collectible" id="armyBox">
+        <img src="fruit-army.png" width="80">
+        <div class="text-container">
+          <p>FRUIT ARMY: <span id="armyCount">0</span></p>
+          <p>45/SEC</p>
+          <p id="armyCostText">750</p>
+        </div>
+      </div>
     </div>
   </div>
   <script>
@@ -143,18 +157,23 @@
     let yardCost = 150;
     let gardens = 0;
     let gardenCost = 500;
+    let armies = 0;
+    let armyCost = 750;
 
     const scoreDisplay = document.getElementById("score");
     const appleButton = document.getElementById("appleButton");
     const treeBox = document.getElementById("treeBox");
     const yardBox = document.getElementById("yardBox");
     const gardenBox = document.getElementById("gardenBox");
+    const armyBox = document.getElementById("armyBox");
     const treeCount = document.getElementById("treeCount");
     const yardCount = document.getElementById("yardCount");
     const gardenCount = document.getElementById("gardenCount");
+    const armyCount = document.getElementById("armyCount");
     const treeCostText = document.getElementById("treeCostText");
     const yardCostText = document.getElementById("yardCostText");
     const gardenCostText = document.getElementById("gardenCostText");
+    const armyCostText = document.getElementById("armyCostText");
 
     appleButton.addEventListener("click", function() {
       let totalPoints = 1 + (yards * 4) + (gardens * 19);
@@ -192,10 +211,18 @@
       }
     });
 
+    armyBox.addEventListener("click", function() {
+      if (score >= armyCost) {
+        score -= armyCost;
+        armies += 1;
+        scoreDisplay.textContent = score;
+        armyCount.textContent = armies;
+        armyCostText.textContent = armyCost;
+      }
+    });
+
     setInterval(function() {
-      score += trees * 1;
+      score += (trees * 1) + (armies * 45); // Add passive points from trees and armies
       scoreDisplay.textContent = score;
     }, 1000);
-  </script>
-</body>
-</html>
+  </scrip
