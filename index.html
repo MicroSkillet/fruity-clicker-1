@@ -81,9 +81,9 @@
       display: flex;
       justify-content: center;
     }
-    .yard-images img {
-      width: 40px;
+    .yard-images span {
       margin: 0 2px;
+      font-size: 14px;
     }
     .collectible p {
       margin: 0;
@@ -106,7 +106,7 @@
     </div>
     <div id="sidebar">
       <div class="collectible" id="treeBox">
-        <img src="fruit-tree.png" width="56">
+        <span>Tree</span>
         <div class="text-container">
           <p>TREE: <span id="treeCount">0</span></p>
           <p>1/SEC</p>
@@ -115,9 +115,9 @@
       </div>
       <div class="collectible" id="yardBox">
         <div class="yard-images">
-          <img src="fruit-tree.png" width="40">
-          <img src="fruit-tree.png" width="40">
-          <img src="fruit-tree.png" width="40">
+          <span>Tree</span>
+          <span>Tree</span>
+          <span>Tree</span>
         </div>
         <div class="text-container">
           <p>FRUIT YARD: <span id="yardCount">0</span></p>
@@ -157,7 +157,7 @@
     const gardenCostText = document.getElementById("gardenCostText");
 
     appleButton.addEventListener("click", function() {
-      let totalPoints = 1 + (yards * 4) + (gardens * 19); // Base 1 + 4 per yard + 19 per garden
+      let totalPoints = 1 + (yards * 4) + (gardens * 19);
       score += totalPoints;
       scoreDisplay.textContent = score;
     });
@@ -166,10 +166,9 @@
       if (score >= treeCost) {
         score -= treeCost;
         trees += 1;
-        // treeCost = Math.floor(treeCost * 1.5); // Removed cost increase
         scoreDisplay.textContent = score;
         treeCount.textContent = trees;
-        treeCostText.textContent = treeCost; // Stays 50
+        treeCostText.textContent = treeCost;
       }
     });
 
@@ -177,10 +176,9 @@
       if (score >= yardCost) {
         score -= yardCost;
         yards += 1;
-        // yardCost = Math.floor(yardCost * 1.5); // Removed cost increase
         scoreDisplay.textContent = score;
         yardCount.textContent = yards;
-        yardCostText.textContent = yardCost; // Stays 150
+        yardCostText.textContent = yardCost;
       }
     });
 
@@ -188,15 +186,14 @@
       if (score >= gardenCost) {
         score -= gardenCost;
         gardens += 1;
-        // gardenCost = Math.floor(gardenCost * 1.5); // Removed cost increase
         scoreDisplay.textContent = score;
         gardenCount.textContent = gardens;
-        gardenCostText.textContent = gardenCost; // Stays 500
+        gardenCostText.textContent = gardenCost;
       }
     });
 
     setInterval(function() {
-      score += trees * 1; // Trees add passive points
+      score += trees * 1;
       scoreDisplay.textContent = score;
     }, 1000);
   </script>
