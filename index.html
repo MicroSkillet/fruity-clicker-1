@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fruity Clicker</title>
+  <style>
+    body {
+      background-color: #f0f8e6;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    #container {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    #main {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 50%;
+    }
+    #appleButton {
+      border: none;
+      cursor: pointer;
+      background: none;
+      transition: transform 0.1s;
+    }
+    #appleButton:hover {
+      opacity: 0.8;
+    }
+    #appleButton:active {
+      transform: scale(0.9);
+    }
+    #sidebar {
+      width: 25%;
+      margin-left: 20px;
+    }
+    .collectible {
+      background-color: #fff;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      text-align: center;
+      height: 180px;
+      width: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .collectible:hover {
+      background-color: #f0f0f0;
+    }
+    .collectible:active {
+      background-color: #e0e0e0;
+    }
+    #treeBox {
+      background-color: #fff3cc;
+    }
+    #treeBox:hover {
+      background-color: #ffe066;
+    }
+    #yardBox {
+      background-color: #cceeff;
+    }
+    #yardBox:hover {
+      background-color: #66ccff;
+    }
+    #gardenBox {
+      background-color: #ffccf2;
+    }
+    #gardenBox:hover {
+      background-color: #ff99cc;
+    }
+    .yard-images {
+      display: flex;
+      justify-content: center;
+    }
+    .yard-images img {
+      width: 40px;
+      margin: 0 2px;
+    }
+    .collectible p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="main">
+      <h1>Fruity Clicker</h1>
+      <p>Fruit Points: <span id="score">0</span></p>
+      <button id="appleButton"><img src="apple.png" width="150"></button>
+    </div>
+    <div id="sidebar">
+      <div class="collectible" id="treeBox">
+        <img src="fruit-tree.png" width="56">
+        <div class="text-container">
+          <p>TREE: <span id="treeCount">0</span></p>
+          <p>1/SEC</p>
+          <p id="treeCostText">50</p>
+        </div>
+      </div>
+      <div class="collectible" id="yardBox">
+        <div class="yard-images">
+          <img src="fruit-tree.png" width="40">
+          <img src="fruit-tree.png" width="40">
+          <img src="fruit-tree.png" width="40">
+        </div>
+        <div class="text-container">
+          <p>FRUIT YARD: <span id="yardCount">0</span></p>
+          <p>5/CLICK</p>
+          <p id="yardCostText">150</p>
+        </div>
+      </div>
+      <div class="collectible" id="gardenBox">
+        <img src="garden.png" width="96">
+        <div class="text-container">
+          <p>GARDEN: <span id="gardenCount">0</span></p>
+          <p>20/CLICK</p>
+          <p id="gardenCostText">500</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let score = 0;
+    let trees = 0;
+    let treeCost = 50;
+    let yards = 0;
+    let yardCost = 150;
+    let gardens = 0;
+    let gardenCost = 500;
+
+    const scoreDisplay = document.getElementById("score");
+    const appleButton = document.getElementById("appleButton");
+    const treeBox = document.getElementById("treeBox");
+    const yardBox = document.getElementById("yardBox");
+    const gardenBox = document.getElementById("gardenBox");
+    const treeCount = document.getElementById("treeCount");
+    const yardCount = document.getElementById("yardCount");
+    const gardenCount = document.getElementById("gardenCount");
+    const treeCostText = document.getElementById("treeCostText");
+    const yardCostText = document.getElementById("yardCostText");
+    const gardenCostText = document.getElementById("gardenCostText");
+
+    appleButton.addEventListener("click", function() {
+      let totalPoints = 1 + (yards * 4) + (gardens * 19); // Base 1 + 4 per yard + 19 per garden
+      score += totalPoints;
+      scoreDisplay.textContent = score;
+    });
+
+    treeBox.addEventListener("click", function() {
+      if (score >= treeCost) {
+        score -= treeCost;
+        trees += 1;
+        // treeCost = Math.floor(treeCost * 1.5); // Removed cost increase
+        scoreDisplay.textContent = score;
+        treeCount.textContent = trees;
+        treeCostText.textContent = treeCost; // Stays 50
+      }
+    });
+
+    yardBox.addEventListener("click", function() {
+      if (score >= yardCost) {
+        score -= yardCost;
+        yards += 1;
+        // yardCost = Math.floor(yardCost * 1.5); // Removed cost increase
+        scoreDisplay.textContent = score;
+        yardCount.textContent = yards;
+        yardCostText.textContent = yardCost; // Stays 150
+      }
+    });
+
+    gardenBox.addEventListener("click", function() {
+      if (score >= gardenCost) {
+        score -= gardenCost;
+        gardens += 1;
+        // gardenCost = Math.floor(gardenCost * 1.5); // Removed cost increase
+        scoreDisplay.textContent = score;
+        gardenCount.textContent = gardens;
+        gardenCostText.textContent = gardenCost; // Stays 500
+      }
+    });
+
+    setInterval(function() {
+      score += trees * 1; // Trees add passive points
+      scoreDisplay.textContent = score;
+    }, 1000);
+  </script>
+</body>
+</html>
